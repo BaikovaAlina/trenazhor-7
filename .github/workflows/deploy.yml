@@ -1,0 +1,72 @@
+name: Deploy to GitHub Pages
+
+# Публикация при каждом пуше в main (и вручную из вкладки Actions)
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Run tests (все генераторы заданий и проверка ответов)
+        run: node tests/run-tests.js
+
+      - name: Build bundle and inject secrets
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: |
+          set -euo pipefail
+          if [ -z "${TELEGRAM_BOT_TOKEN}" ] || [ -z "${TELEGRAM_CHAT_ID}" ]; then
+            echo "::warning::Секреты TELEGRAM_BOT_TOKEN / TELEGRAM_CHAT_ID не заданы — сайт опубликуется без отправки в Telegram."
+          fi
+          mkdir -p _site
+          cp -r index.html lesson.html trainer.html css js .nojekyll _site/
+          # подстановка секретов (только в собранный бандл, репозиторий не меняется)
+          sed -i "s|__TELEGRAM_BOT_TOKEN__|${TELEGRAM_BOT_TOKEN}|g; s|__TELEGRAM_CHAT_ID__|${TELEGRAM_CHAT_ID}|g" _site/js/config.js
+          # сброс кэша браузера: ?v=dev → ?v=<короткий sha коммита>
+          SHORT_SHA="${GITHUB_SHA::7}"
+          find _site -name '*.html' -exec sed -i "s|?v=dev|?v=${SHORT_SHA}|g" {} +
+          # контроль: плейсхолдеров не осталось (если секреты заданы)
+          if [ -n "${TELEGRAM_BOT_TOKEN}" ] && grep -q "__TELEGRAM_" _site/js/config.js; then
+            echo "::error::Плейсхолдеры не заменены"; exit 1
+          fi
+          echo "Собрано файлов: $(find _site -type f | wc -l)"
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

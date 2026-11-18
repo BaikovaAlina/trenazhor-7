@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Сводный тренажёр · Математика 7</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🎯%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="css/style.css?v=dev">
+</head>
+<body>
+  <div class="wrap">
+    <div class="lesson-top">
+      <a class="btn ghost small" href="index.html">← К урокам</a>
+      <button class="chip" id="student" type="button" title="Изменить имя">👤 <span>Представься</span></button>
+    </div>
+    <h1>🎯 Сводный тренажёр</h1>
+    <p class="sub">Отметь темы, выбери число заданий и начинай. Подходит для повторения перед контрольной.</p>
+    <section class="card" id="setup">
+      <div class="filters" style="position:static;margin:0 0 8px;background:none">
+        <div class="seg" data-filter="subject">
+          <button type="button" data-v="all" class="on">Все</button>
+          <button type="button" data-v="algebra">Алгебра</button>
+          <button type="button" data-v="geometry">Геометрия</button>
+        </div>
+        <div class="seg" data-filter="level">
+          <button type="button" data-v="all" class="on">Все уровни</button>
+          <button type="button" data-v="base">Базовый</button>
+          <button type="button" data-v="adv">Углублённый</button>
+        </div>
+      </div>
+      <div class="row"><button class="linkbtn" type="button" id="all-on">Отметить все</button><button class="linkbtn" type="button" id="all-off">Снять все</button></div>
+      <div class="picker" id="picker"></div>
+      <div class="row" style="margin-top:12px">
+        <label for="count"><b>Заданий:</b></label>
+        <div class="seg" id="count">
+          <button type="button" data-v="10" class="on">10</button>
+          <button type="button" data-v="15">15</button>
+          <button type="button" data-v="20">20</button>
+          <button type="button" data-v="30">30</button>
+        </div>
+        <button class="btn big green" id="start" type="button">Начать ▶</button>
+      </div>
+    </section>
+    <div id="runner"></div>
+  </div>
+  <script src="js/config.js?v=dev"></script>
+  <script src="js/core/utils.js?v=dev"></script>
+  <script src="js/core/checker.js?v=dev"></script>
+  <script src="js/core/figures.js?v=dev"></script>
+  <script src="js/core/stats.js?v=dev"></script>
+  <script src="js/core/telegram.js?v=dev"></script>
+  <script src="js/data/algebra.js?v=dev"></script>
+  <script src="js/data/geometry.js?v=dev"></script>
+  <script src="js/core/engine.js?v=dev"></script>
+  <script src="js/ui/common.js?v=dev"></script>
+  <script src="js/ui/runner.js?v=dev"></script>
+  <script src="js/pages/trainer.js?v=dev"></script>
+</body>
+</html>

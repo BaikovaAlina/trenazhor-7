@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Математика · 7 класс · Тренажёр: алгебра и геометрия</title>
+  <meta name="description" content="Классные и домашние работы по алгебре и геометрии для 7 класса (ФГОС ООО, ФОП): мгновенная проверка ответов, статистика, отправка результата учителю.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E📐%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="css/style.css?v=dev">
+</head>
+<body>
+  <div class="wrap">
+    <header class="topbar">
+      <div>
+        <h1>Математика · 7 класс</h1>
+        <p class="sub">Алгебра и геометрия · классные и домашние работы · ФГОС ООО и ФОП</p>
+      </div>
+      <button class="chip" id="student" type="button" title="Изменить имя">👤 <span>Представься</span></button>
+    </header>
+
+    <section class="hero">
+      <div class="card">
+        <h3>🎯 Сводный тренажёр</h3>
+        <p class="sub" style="margin:0 0 12px">Собери тренировку из любых тем: задания перемешиваются, каждый раз новый вариант.</p>
+        <a class="btn big" href="trainer.html?v=dev">Открыть тренажёр ▶</a>
+      </div>
+      <div class="card" id="summary">
+        <h3>📊 Мои результаты</h3>
+        <p class="sub" style="margin:0">Здесь появится статистика после первой работы.</p>
+      </div>
+    </section>
+
+    <nav class="filters" aria-label="Фильтры уроков">
+      <div class="seg" data-filter="subject">
+        <button type="button" data-v="all" class="on">Все</button>
+        <button type="button" data-v="algebra">Алгебра</button>
+        <button type="button" data-v="geometry">Геометрия</button>
+      </div>
+      <div class="seg" data-filter="level">
+        <button type="button" data-v="all" class="on">Все уровни</button>
+        <button type="button" data-v="base">Базовый</button>
+        <button type="button" data-v="adv">Углублённый</button>
+      </div>
+      <input class="search" id="search" type="search" placeholder="🔍 Поиск темы: «квадрат», «углы»…" aria-label="Поиск темы">
+    </nav>
+
+    <main id="catalog"><noscript><p>Для работы тренажёра включите JavaScript.</p></noscript></main>
+
+    <section class="card teacher" id="teacher">
+      <h3>👩‍🏫 Для учителя</h3>
+      <p class="sub" style="margin:6px 0 10px" id="tg-status"></p>
+      <div class="row">
+        <button class="btn ghost" id="tg-test" type="button">🔔 Проверить связь с Telegram</button>
+        <a class="btn ghost" href="https://github.com/BaikovaAlina/trenazhor-7#readme" target="_blank" rel="noopener">📖 Инструкция по настройке</a>
+      </div>
+    </section>
+
+    <footer>
+      ✏️ Каждая работа проверяется прямо на странице (верно — зелёным, ошибка — красным). В конце результат можно
+      <b>отправить учителю</b> кнопкой «Отправить 📩». Домашнее задание у каждого ученика своё: вариант зависит от имени.
+      <br>Программа: алгебра — Макарычев (базовый), Петерсон и Галицкий (углублённый); геометрия — Атанасян (базовый), Кутузов и Гордин (углублённый).
+    </footer>
+  </div>
+  <script src="js/config.js?v=dev"></script>
+  <script src="js/core/utils.js?v=dev"></script>
+  <script src="js/core/checker.js?v=dev"></script>
+  <script src="js/core/figures.js?v=dev"></script>
+  <script src="js/core/stats.js?v=dev"></script>
+  <script src="js/core/telegram.js?v=dev"></script>
+  <script src="js/data/algebra.js?v=dev"></script>
+  <script src="js/data/geometry.js?v=dev"></script>
+  <script src="js/core/engine.js?v=dev"></script>
+  <script src="js/ui/common.js?v=dev"></script>
+  <script src="js/pages/home.js?v=dev"></script>
+</body>
+</html>
